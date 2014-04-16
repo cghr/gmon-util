@@ -1,0 +1,80 @@
+apply plugin: 'groovy'
+apply plugin: 'war'
+apply plugin: 'maven'
+apply plugin: 'jetty'
+
+
+sourceCompatibility = 1.6
+version = '0.1-beta1'
+group = 'org.cghr'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+
+    }
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+String springVersion = '3.2.5.RELEASE'
+
+test {
+    systemProperties 'property': 'value'
+    include 'src/integrationTest'
+
+}
+
+sourceSets {
+    integrationTest
+}
+
+task intTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+}
+assemble.dependsOn clean
+check.dependsOn intTest
+dependencies {
+    compile "org.springframework:spring-context:$springVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    compile 'org.codehaus.groovy:groovy-all:2.2.0'
+    compile 'javax.servlet:servlet-api:2.5'
+    compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+    compile 'log4j:log4j:1.2.17'
+    compile 'org.firebirdsql.jdbc:jaybird:2.1.6'
+    testCompile 'org.spockframework:spock-unitils:0.7-groovy-2.0'
+    testCompile 'cglib:cglib-nodep:3.1'
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile "org.springframework:spring-test:$springVersion"
+    testCompile 'org.spockframework:spock-spring:0.7-groovy-2.0'
+    testCompile 'com.h2database:h2:1.3.174'
+    testCompile 'org.objenesis:objenesis:2.1'
+    testCompile 'com.github.tomakehurst:wiremock:1.36'
+    testCompile 'org.slf4j:slf4j-api:1.7.5'
+
+    integrationTestCompile configurations.testCompile + sourceSets.main.output + sourceSets.test.output
+    integrationTestRuntime configurations.testRuntime
+
+}
+
+
+
+
+uploadArchives {
+    repositories {
+        flatDir {
+            dirs 'repos'
+        }
+    }
+}
+

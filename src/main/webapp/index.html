@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title></title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <script src="js/angular.min.js"></script>
+</head>
+<body ng-controller="MainCtrl">
+<h2>Barshi Clinic</h2>
+
+<h4>Body Impedance</h4>
+
+<div class="container">
+    <div style="width:300px;margin-top:20px;">
+        <input type="text" ng-model="customer"/>
+        <button ng-click="getData()">Get Data</button>
+
+        <form>
+
+
+            <div class="form-group" ng-repeat="(key,prop) in bodyImp track by key">
+                <label>{{key}} : <input class="form-control" type="text" ng-model="bodyImp[key]"/></label>
+
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+<script>
+
+    var app=angular.module('myApp',[]);
+    app.controller('MainCtrl',function($scope,$http){
+
+    var service='/gmon-util/api/bodyImp/';
+    $scope.bodyImp={name:'patient1',age:20};
+
+    $scope.getData=function(){
+
+console.log('getting data');
+    $http.get(service+$scope.customer).then(function(resp){
+    $scope.bodyImp=resp.data
+    });
+
+    };
+
+
+
+    });
+
+
+
+
+
+</script>
+</body>
+</html>
