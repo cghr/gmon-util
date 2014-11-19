@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody
  */
 @Controller
 @RequestMapping("/bodyImp")
-class BodyImpedance {
+class BodyImpedance{
 
     @Autowired
     Sql gSql

@@ -8,7 +8,7 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.firebirdsql.jdbc.FBDriver"/>
-        <property name="url" value="jdbc:firebirdsql://192.168.43.109:3050/C:/Program Files/MedServ/GMon3/database/GMON3.GDB"/>
+        <property name="url" value="jdbc:firebirdsql://localhost:3050/C:/Program Files/MedServ/GMon3/database/GMON3.GDB"/>
         <property name="username" value="SYSDBA"/>
         <property name="password" value="masterkey"/>
     </bean>
